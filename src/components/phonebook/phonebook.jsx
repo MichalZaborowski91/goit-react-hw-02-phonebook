@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ContactAdd from 'components/contactAdd/contactAdd';
 import ContactsList from 'components/contactList/contactList';
+import Filter from 'components/filter/filter';
 
 class Phonebook extends Component {
   state = {
@@ -40,6 +41,7 @@ class Phonebook extends Component {
         <h1>Phonebook</h1>
         <ContactAdd addContact={this.addContact} />
         <h2>Contacts</h2>
+        <Filter />
         <ContactsList
           contacts={this.state.contacts}
           deleteContact={this.deleteContact}
