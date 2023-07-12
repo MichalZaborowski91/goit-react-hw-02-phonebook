@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ContactAdd from 'components/contactAdd/contactAdd';
 import ContactsList from 'components/contactList/contactList';
-import Filter from 'components/filter/filter';
+import { nanoid } from 'nanoid';
+import css from './phonebook.module.css';
 
 class Phonebook extends Component {
   state = {
@@ -13,19 +14,16 @@ class Phonebook extends Component {
     ],
   };
 
-  addContact = newProduct => {
-    let array = [];
-    // eslint-disable-next-line no-lone-blocks
-    {
-      this.state.contacts.map(contact =>
-        array.push(contact.name.toLowerCase())
-      );
+  addContact = newContact => {
+    let existingContact = this.state.contacts.some(
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+    );
+    if (existingContact) {
+      return alert(`${newContact.name} is already in contacts`);
     }
-    if (array.includes(newProduct.name.toLowerCase())) {
-      return alert(`${newProduct.name} is already in contacts`);
-    }
+    newContact.id = nanoid();
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, newProduct],
+      contacts: [...prevState.contacts, newContact],
     }));
   };
   deleteContact = index => {
@@ -35,13 +33,16 @@ class Phonebook extends Component {
       return { contacts: updatedContacts };
     });
   };
+
   render() {
+    console.log(this.state);
     return (
-      <div>
-        <h1>Phonebook</h1>
-        <ContactAdd addContact={this.addContact} />
-        <h2>Contacts</h2>
-        <Filter />
+      <div className={css.section}>
+        <div className={css.phonebook}>
+          <h1 className={css.header}>Phonebook</h1>
+          <ContactAdd addContact={this.addContact} />
+        </div>
+        <h2 className={css.header}>Contacts</h2>
         <ContactsList
           contacts={this.state.contacts}
           deleteContact={this.deleteContact}

@@ -1,0 +1,25 @@
+.sectionInput {
+  display: flex;
+  flex-direction: column;
+}
+.labelInput {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  font-weight: 700;
+  color: #959292;
+}
+.input {
+  margin-top: 5px;
+  width: 200px;
+}
+.submitBtn {
+  font-weight: 700;
+  width: 120px;
+  height: 40px;
+  margin: 20px auto;
+  cursor: pointer;
+  background-color: aqua;
+  border: 1px solid black;
+}
