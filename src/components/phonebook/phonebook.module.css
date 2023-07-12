@@ -10,3 +10,7 @@
 .header {
   text-align: center;
 }
+.contacts {
+  width: 500px;
+  margin: 20px auto;
+}

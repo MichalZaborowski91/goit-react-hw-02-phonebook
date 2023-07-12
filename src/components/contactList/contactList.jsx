@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import css from './contactList.module.css';
+import PropTypes from 'prop-types';
 
 class ContactsList extends Component {
   state = {
@@ -8,7 +10,7 @@ class ContactsList extends Component {
     const { value } = e.target;
     this.setState(prevState => ({
       ...prevState,
-      filter: value,
+      filter: value.toLowerCase(),
     }));
   };
   viewContacts = () => {
@@ -25,32 +27,39 @@ class ContactsList extends Component {
     return (
       <div>
         <div>
-          <label>
-            Find contacts by name
-            <input
-              type="text"
-              name="filter"
-              placeholder="Search by name"
-              value={this.state.filter}
-              onChange={this.handleChange}
-            />
-          </label>
+          <form className={css.searchNameBox}>
+            <label className={css.labelInput}>
+              Find contacts by name
+              <input
+                className={css.input}
+                type="text"
+                name="filter"
+                placeholder="Search by name"
+                title="Search contacts by name, only small letters by default"
+                value={this.state.filter}
+                onChange={this.handleChange}
+              />
+            </label>
+          </form>
         </div>
-        <ul>
+        <ol>
           {this.viewContacts().map(({ id, name, number }, index) => (
-            <li key={id}>
+            <li key={id} className={css.listItem}>
               {name}: {number}
-              <div>
-                <button onClick={() => this.props.deleteContact(index)}>
-                  Delete
-                </button>
-              </div>
+              <button
+                onClick={() => this.props.deleteContact(index)}
+                className={css.deleteBtn}
+              >
+                Delete
+              </button>
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
     );
   }
 }
-
+ContactsList.propTypes = {
+  filter: PropTypes.string,
+};
 export default ContactsList;
